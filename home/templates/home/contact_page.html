@@ -1,0 +1,71 @@
+{% extends 'other_base.html' %}
+{% load  crispy_forms_tags static wagtailcore_tags wagtailimages_tags %} 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/give.css' %}">
+
+{% endblock %}
+
+{% block content %}
+{% comment %} Contact Section {% endcomment %}
+
+  <section id="contact" class="contact" style="margin-top: 50px;">
+    <div class="container">
+      <div class="row justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+          <div class="info-wrap">
+            <div class="row" style="display: flex; flex-direction: row">
+              <div class="col-lg-4 info">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>{{self.location}},<br>Naluvle, Wakiso</p>
+              </div>
+             
+              
+              <div class="col-lg-4 info mt-4 mt-lg-0">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>{{self.email}}</p>
+              </div>
+
+              <div class="col-lg-4 info mt-4 mt-lg-0">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>{{ self.phone }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5 justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+          <form action="{% pageurl page %}" method="POST" role="form" class="php-email-form">
+            {% csrf_token %}
+ 
+            <div class="row">
+              <div class="col-md-6 form-group">
+                  {{ form.name|as_crispy_field }}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {{ form.phone_number|as_crispy_field }}
+              </div>
+              <div class="form-group mt-3">
+                {{ form.email|as_crispy_field }}
+              </div>
+            </div>
+            <div class="form-group mt-3">
+             {{ form.subject|as_crispy_field }}
+            </div>
+            <div class="form-group mt-3">
+              {{ form.message|as_crispy_field }}
+            </div>
+            <div class="text-center">
+              <button type="submit">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Contact Section -->
+{% endblock content %}

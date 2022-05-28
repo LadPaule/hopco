@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags  wagtailimages_tags wagtailembeds_tags %} 
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %} 
+
+{% block content %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 600px;">
+    <div id="heroCarousel" data-bs-interval="3000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+      <div class="carousel-inner" role="listbox">
+        {% for item in self.carousel_items.all %}
+        {% image item.image original as slide_image  %}
+          <div class="carousel-item {% if forloop.first %} active {% endif %}" style="background-image: url('{{ slide_image.url }}');">
+            <div class="carousel-container" style="align-itmes: center;">
+              <div class="carousel-content animate__animated animate__fadeInUp" style="text-align: center;">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.body|richtext }}</p>
+                <div class="text-center"><a href="{{ item.read_more }}" class="btn-get-started">Read More</a></div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bx bx-left-arrow" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bx bx-right-arrow" aria-hidden="true"></span>
+      </a>
+      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+    </div>
+  </section><!-- End Hero -->
+      <main id="main">
+        <!-- ======= Cta Section ======= -->
+        <section id="cta" class="cta">
+          <div class="container">
+    
+            <div class="row">
+              <div class="col-lg-9 text-center text-lg-left">
+                <h3>We have served morethan <span data-purecounter-start="0" data-purecounter-end={{self.beneficiary_number}} data-purecounter-duration="2" class="purecounter"></span> beneficiaries</h3>
+                <p> {{ self.beneficiary_narration }}</p>
+              </div>
+              <div class="col-lg-3 cta-btn-container text-center">
+                <a class="cta-btn align-middle" href="/donate">See how to join in</a>
+              </div>
+            </div>
+          </div>
+        </section><!-- End Cta Section -->
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services">
+          <div class="container">
+    
+            <div class="row">
+              {% for item in self.involve_items.all %}
+                <div class="col-lg-4 col-md-6">
+                  <div class="icon-box" data-aos="fade-up">
+                    <div class="icon"><i class="{{ item.icon_class }}"></i></div>
+                    <h4 class="title"><a href="">{{ item.title }}</a></h4>
+                    <p class="description">{{ item.body|richtext }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section><!-- End Services Section -->
+
+         <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>HOPCO <strong>Causes</strong> </h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-right">
+            <ul class="nav nav-tabs flex-column">
+              {% for item in self.causes_items.all %}
+                <li class="nav-item">
+                  <a class="nav-link {% if forloop.first %} active show{% endif %}" data-bs-toggle="tab" href="#{{item.tab_id}}">
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.body|richtext }}</p>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="col-lg-7 ml-auto" data-aos="fade-left" data-aos-delay="100">
+            <div class="tab-content">
+              {% for item in self.causes_items.all %}
+              {% image item.image original as cause_image  %}
+              <div class="tab-pane {% if forloop.first %} active show{% endif %}" id="{{item.tab_id}}">
+                <figure>
+                  <img src="{{ cause_image.url }}" alt="" class="img-fluid">
+                </figure>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Features Section -->
+
+
+  </main>
+
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
