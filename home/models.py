@@ -248,8 +248,8 @@ class AboutPage(Page):
         FieldPanel('hero_text'),
         ImageChooserPanel('featured_image'),
         FieldPanel('body'),
-        InlinePanel('strategics', label="FAQs", help_text="Add Team strategics here "),
-        InlinePanel('team_members', label="FAQs", help_text="Add Team members here"),
+        InlinePanel('strategics', label="Strategic organisataion", help_text="Add Team strategics here "),
+        InlinePanel('team_members', label="Team members", help_text="Add Team members here"),
     ]
 
 class Strategics(Orderable):
