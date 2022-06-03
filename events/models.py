@@ -64,6 +64,11 @@ class EventPage(Page):
 		FieldPanel('event_venue'),
         FieldPanel('body', classname="full"),
     ]
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        siblings = Page.objects.sibling_of(self, inclusive=False).public().order_by('-last_published_at')
+        context['siblings'] = siblings
+        return context
 
     search_fields = Page.search_fields + [
         index.SearchField('title', partial_match=True, boost=10),
