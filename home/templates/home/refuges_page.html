@@ -51,6 +51,25 @@
       </div>
     </section><!-- End About Us Section -->
 
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services section-bg">
+          <div class="container" data-aos="fade-up">
+            <div class="section-title">
+              <h2>{{ self.title }} page</h2>
+              <p>Fetured photographs</p>
+            </div>
+            <div class="row">
+              {% for phot in self.gallery_items.all %}
+                {% image phot.image original as im %}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                  <img src={{ im.url }} width="420px" height="auto" style="padding: 5px; border-radius: 10px; margin-bottom: 10px;"/>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section><!-- End Services Section -->
+    
+
 <!-- ======= Frequently Asked Questions Section ======= -->
 <section id="faq" class="faq section-bg">
   <div class="container" data-aos="fade-up">

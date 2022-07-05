@@ -132,6 +132,7 @@ class EmpoweringPage(Page):
         FieldPanel('body_2'),
         FieldPanel('body_3'),
         FieldPanel('body_4'),
+        InlinePanel('gallery_items', label="Gallery items"),
         InlinePanel('faqs', label="FAQs", help_text="Add Frequently Asked Questions about the women and youths empowerment program"),
 
     ]
@@ -142,6 +143,14 @@ class EmpoweringPageFaqs(Orderable):
     panels = [
         FieldPanel('question'),
         FieldPanel('answer'),
+    ]
+
+
+class EmpoweringGallery(Orderable):
+    page = ParentalKey(EmpoweringPage, related_name='gallery_items')
+    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+' )
+    panels = [
+        ImageChooserPanel('image'),
     ]
 
 class SkillsPage(Page):
@@ -158,6 +167,7 @@ class SkillsPage(Page):
         FieldPanel('body_2'),
         FieldPanel('body_3'),
         FieldPanel('body_4'),
+        InlinePanel('gallery_items', label="Gallery items", max_num=6),
         InlinePanel('faqs', label="FAQs", help_text="Add Frequently Asked Questions about the skills Developemt program"),
     ]
 class SkillsPageFaqs(Orderable):
@@ -168,6 +178,14 @@ class SkillsPageFaqs(Orderable):
         FieldPanel('question'),
         FieldPanel('answer'),
     ]
+
+class SkillsGallery(Orderable):
+    page = ParentalKey(SkillsPage, related_name='gallery_items')
+    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+' )
+    panels = [
+        ImageChooserPanel('image'),
+    ]
+
 class TalentPage(Page):
     featured_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, related_name='+' )
     body_heading = models.CharField(max_length=255, blank=True, null=True)
@@ -182,6 +200,7 @@ class TalentPage(Page):
         FieldPanel('body_2'),
         FieldPanel('body_3'),
         FieldPanel('body_4'),
+        InlinePanel('gallery_items', label="Gallery items", max_num=6),
         InlinePanel('faqs', label="FAQs", help_text="Add Frequently Asked Questions about the Talent support & nurturing program"),
     ]
 class TalentPageFaqs(Orderable):
@@ -191,6 +210,13 @@ class TalentPageFaqs(Orderable):
     panels = [
         FieldPanel('question'),
         FieldPanel('answer'),
+    ]
+
+class TalentGallery(Orderable):
+    page = ParentalKey(TalentPage, related_name='gallery_items')
+    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+' )
+    panels = [
+        ImageChooserPanel('image'),
     ]
 
 class RefugesPage(Page):
@@ -207,7 +233,7 @@ class RefugesPage(Page):
         FieldPanel('body_2' ),
         FieldPanel('body_3' ),
         FieldPanel('body_4' ),
-
+        InlinePanel('gallery_items', label="Gallery items", max_num=6 ),
         InlinePanel('faqs', label="FAQs", help_text="Add Frequently Asked Questions about the Refugees response program"),
     ]
 class RefugesPageFaqs(Orderable):
@@ -217,6 +243,13 @@ class RefugesPageFaqs(Orderable):
     panels = [
         FieldPanel('question'),
         FieldPanel('answer'),
+    ]
+
+class RefugesGallery(Orderable):
+    page = ParentalKey(RefugesPage, related_name='gallery_items')
+    image = models.ForeignKey('wagtailimages.Image', on_delete=models.CASCADE, related_name='+' )
+    panels = [
+        ImageChooserPanel('image'),
     ]
 class GivePage(Page):
     intro = RichTextField(blank=True)
